@@ -54,6 +54,7 @@ class PatchDominantGradientOrientation(nn.Module):
             self.angular_smooth.weight[:] = torch.tensor([[[0.33, 0.34, 0.33]]])
         sigma: float = float(self.patch_size) / math.sqrt(2.0)
         self.weighting = get_gaussian_kernel2d((self.patch_size, self.patch_size), (sigma, sigma), True)
+        self.weighting = self.weighting * torch.where(self.weighting < self.weighting[0, 0, int(patch_size // 2)], 0.0, 1.0)
 
     def __repr__(self):
         return (
@@ -80,7 +81,7 @@ class PatchDominantGradientOrientation(nn.Module):
             )
         self.weighting = self.weighting.to(patch.dtype).to(patch.device)
         self.angular_smooth = self.angular_smooth.to(patch.dtype).to(patch.device)
-        grads: torch.Tensor = self.gradient(patch)
+        grads: torch.Tensor = self.gradient(patch) * self.weighting
         # unpack the edges
         gx: torch.Tensor = grads[:, :, 0]
         gy: torch.Tensor = grads[:, :, 1]
