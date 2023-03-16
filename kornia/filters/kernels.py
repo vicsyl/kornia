@@ -15,7 +15,7 @@ def _check_kernel_size(kernel_size: tuple[int, ...] | int, min_value: int = 0, a
     if isinstance(kernel_size, int):
         kernel_size = (kernel_size,)
 
-    fmt = 'even or odd' if allow_even else 'odd'
+    fmt = '' if allow_even else 'odd'
     for size in kernel_size:
         KORNIA_CHECK(
             isinstance(size, int) and (((size % 2 == 1) or allow_even) and size > min_value),
