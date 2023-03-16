@@ -495,18 +495,18 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">1e-0
 <dt class="sig sig-object py" id="kornia.geometry.subpix.spatial_softmax2d">
 <span class="sig-prename descclassname"><span class="pre">kornia.geometry.subpix.</span></span><span class="sig-name descname"><span class="pre">spatial_softmax2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.tensor(1.0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/kornia/geometry/subpix/dsnt.html#spatial_softmax2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kornia.geometry.subpix.spatial_softmax2d" title="Permalink to this definition">#</a></dt>
 <dd><p>Apply the Softmax function over features in each image channel.</p>
-<p>Note that this function behaves differently to <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Softmax2d.html#torch.nn.Softmax2d" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Softmax2d</span></code></a>, which
+<p>Note that this function behaves differently to <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Softmax2d.html#torch.nn.Softmax2d" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Softmax2d</span></code></a>, which
 instead applies Softmax over features at each spatial location.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the input tensor with shape <span class="math notranslate nohighlight">\((B, N, H, W)\)</span>.</p></li>
-<li><p><strong>temperature</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <em>optional</em>) – factor to apply to input, adjusting the “smoothness” of the output distribution.
+<li><p><strong>input</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the input tensor with shape <span class="math notranslate nohighlight">\((B, N, H, W)\)</span>.</p></li>
+<li><p><strong>temperature</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <em>optional</em>) – factor to apply to input, adjusting the “smoothness” of the output distribution.
 Default:  <code class="code docutils literal notranslate"><span class="pre">torch.tensor(1.0)</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a 2D probability distribution per image channel with shape <span class="math notranslate nohighlight">\((B, N, H, W)\)</span>.</p>
@@ -534,14 +534,14 @@ which can be achieved using <code class="xref py py-func docutils literal notran
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the input tensor representing dense spatial probabilities with shape <span class="math notranslate nohighlight">\((B, N, H, W)\)</span>.</p></li>
+<li><p><strong>input</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the input tensor representing dense spatial probabilities with shape <span class="math notranslate nohighlight">\((B, N, H, W)\)</span>.</p></li>
 <li><p><strong>normalized_coordinates</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – whether to return the coordinates normalized in the range
 of <span class="math notranslate nohighlight">\([-1, 1]\)</span>. Otherwise, it will return the coordinates in the range of the input shape.
 Default:  <code class="code docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>expected value of the 2D coordinates with shape <span class="math notranslate nohighlight">\((B, N, 2)\)</span>. Output order of the coordinates is (x, y).</p>
@@ -565,8 +565,8 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">True
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the given heatmap with shape <span class="math notranslate nohighlight">\((B, N, H, W)\)</span>.</p></li>
-<li><p><strong>temperature</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <em>optional</em>) – factor to apply to input.
+<li><p><strong>input</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the given heatmap with shape <span class="math notranslate nohighlight">\((B, N, H, W)\)</span>.</p></li>
+<li><p><strong>temperature</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <em>optional</em>) – factor to apply to input.
 Default:  <code class="code docutils literal notranslate"><span class="pre">tensor(1.0)</span></code></p></li>
 <li><p><strong>normalized_coordinates</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>optional</em>) – whether to return the coordinates normalized in the range of <span class="math notranslate nohighlight">\([-1, 1]\)</span>.
 Otherwise, it will return the coordinates in the range of the input shape.
@@ -574,7 +574,7 @@ Default:  <code class="code docutils literal notranslate"><span class="pre">True
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v1.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the index of the maximum 2d coordinates of the give map <span class="math notranslate nohighlight">\((B, N, 2)\)</span>.
