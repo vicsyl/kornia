@@ -81,7 +81,7 @@ def estimate_angle_artificially_rotated(img: torch.tensor, laf, alpha, ori_modul
     return estimated_alpha.item()
 
 
-default_alphas = np.arange(0, 90, 1)
+default_alphas = np.arange(0, 30, 1)
 save_plots = True
 
 
@@ -122,6 +122,7 @@ def exp_for_laf(timg_gray, laf):
 
     ori_module = CustomizablePatchDominantGradientOrientation(32)
     ori_module_refined = CustomizablePatchDominantGradientOrientation(32, conf={"refined": True})
+    ori_module_refined2 = CustomizablePatchDominantGradientOrientation(32, conf={"refined": True, "ref": True})
     ori_module_refined_gauss = CustomizablePatchDominantGradientOrientation(32, conf={"refined": True, "gauss_weighted": True})
     ori_module_refined_circular = CustomizablePatchDominantGradientOrientation(32, conf={"refined": True, "circular_kernel": True})
     ori_module_refined_circular_precise = CustomizablePatchDominantGradientOrientation(32, conf={"refined": True, "circular_kernel_precise": True})
@@ -144,6 +145,7 @@ def exp_for_laf(timg_gray, laf):
     # redo to use 'estimate(module):'
     est_alphas_artificial = (estimate_grad_rot(ori_module), "Kornia grad rot. baseline")
     est_alphas_artificial_refined = (estimate_grad_rot(ori_module_refined), "grad. rot. par. refined")
+    est_alphas_artificial_refined2 = (estimate_grad_rot(ori_module_refined2), "grad. rot. par. refined refined")
 
     # plot_measurements("Kornia - grad rotation", [est_alphas_artificial, est_alphas_artificial_refined], ["Kornia", "Kornia parabola refinement"])
 
@@ -165,7 +167,7 @@ def exp_for_laf(timg_gray, laf):
     # estimates = [est_alphas_artificial, est_alphas_artificial_refined]
     # labels = ["grad rot", "grad rot refined"]
 
-    plot_measurements(f"Kornia grad. rot. laf={laf}", [est_alphas_artificial, est_alphas_artificial_refined])
+    plot_measurements(f"Kornia grad. rot. laf={laf}", [est_alphas_artificial, est_alphas_artificial_refined, est_alphas_artificial_refined2])
 
     # plt.figure("Basic plot")
     # plt.plot(default_alphas, est_alphas_original, label="Kornia original")

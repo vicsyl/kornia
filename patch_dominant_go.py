@@ -94,6 +94,8 @@ class CustomizablePatchDominantGradientOrientation(nn.Module):
             conf["circular_kernel_precise"] = False
         if not conf.__contains__("show_kernel"):
             conf["show_kernel"] = False
+        if not conf.__contains__("ref"):
+            conf["ref"] = False
 
     def __repr__(self):
         return self.__class__.__name__ + '('\
@@ -155,9 +157,37 @@ class CustomizablePatchDominantGradientOrientation(nn.Module):
         indices_minus_1 = torch.remainder(indices - 1, self.num_ang_bins)
         values_minus_1 = ang_bins[..., indices_minus_1].float()
 
+        values_second = torch.where(values_plus_1 > values_minus_1, values_plus_1, values_minus_1)
+        values_third = torch.where(values_plus_1 > values_minus_1, values_minus_1, values_plus_1)
+
+        indices_second = torch.where(values_plus_1 > values_minus_1, indices_plus_1, indices_minus_1)
+        indices_third = torch.where(values_plus_1 > values_minus_1, indices_minus_1, indices_plus_1)
+
         refinement = (values_plus_1 - values_minus_1) / 2.0 / (2.0 * values - (values_plus_1 + values_minus_1))
         eps_refinemnt = 1e-3
+
+        # refinement ver. 2
+        #refinement = -refinement
+
+        if self.config["ref"]:
+
+            ref_old = refinement
+            # CONTINUE - (indices_second - indices) - modulo num_bins, but careful!
+            refinement_new = (values_second - values_third) / (values + values_second - 2 * values_third) * (indices_second - indices)
+            ref_on = refinement * 4 / (1 + 6 * refinement)
+            #assert torch.allclose(refinement_new, ref_on, atol=1e-4)
+            refinement = refinement_new
+
+            # if refinement > 0:
+            #     refinement = refinement * 4 / (1 + 6 * refinement)
+            # else:
+            #     pass
+                # refinement = -refinement
+                # refinement = refinement * 4 / (1 + 6 * refinement)
+                # refinement = -refinement
+
         assert torch.all(refinement.abs() < 0.5 + eps_refinemnt)
+
         indices = indices.float() + refinement
         angle_refined = -((2. * pi * indices.to(patch.dtype) / float(self.num_ang_bins)) - pi)  # type: ignore
 
